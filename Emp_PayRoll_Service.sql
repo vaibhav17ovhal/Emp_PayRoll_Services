@@ -15,7 +15,7 @@ Create table Employees
 Insert into Employees (Emp_Name , Salary , Starting_date) values ('Alexa' , 40000 , '2020-03-20');
 
 --UC4
-select * from Employees
+ Select * from Employees
 
 --UC5
 Select Salary from Employees where Emp_Name = 'John'
@@ -84,3 +84,53 @@ update Employees set Basic_Pay = 15000 , Deduction = 0 , Taxable_Pay = 0 , Incom
 --UC10
 Insert into Employees (Emp_Name , Salary , Starting_date , Gender , Phone , Address , Department , Basic_Pay , Deduction , Taxable_Pay , Income_Tax , Net_Pay) values ('Terissa' , 25000 , '2020-03-20' , 'F' , 7415887847 , 'Ohio' , 'Sales' , 15000 , 0 , 0 , 0 , 0);
 Insert into Employees (Emp_Name , Salary , Starting_date , Gender , Phone , Address , Department , Basic_Pay , Deduction , Taxable_Pay , Income_Tax , Net_Pay) values ('Terissa' , 25000 , '2020-03-20' , 'F' , 7415887847 , 'Ohio' , 'Marketing' , 15000 , 0 , 0 , 0 , 0);
+
+--UC11
+
+Create table Department
+(
+	Dept_ID int primary key identity(1,1),
+	Dept_Name Varchar(100)
+);
+
+Alter table Department Add Emp_ID int foreign key references Employees(Emp_ID)
+
+Alter table Department Drop Column Dept_Name;
+Alter table Department Add Dept_Name Varchar(100);
+select * from Department
+
+Insert into Department (Emp_ID , Dept_Name) values (1 , 'Developer');
+Insert into Department (Emp_ID , Dept_Name) values (2 , 'Team Lead');
+Insert into Department (Emp_ID , Dept_Name) values (3 , 'Engineer');
+Insert into Department (Emp_ID , Dept_Name) values (4 , 'Team Lead');
+Insert into Department (Emp_ID , Dept_Name) values (5 , 'Developer');
+Insert into Department (Emp_ID , Dept_Name) values (6 , 'Manager');
+Insert into Department (Emp_ID , Dept_Name) values (7 , 'Developer');
+Insert into Department (Emp_ID , Dept_Name) values (8 , 'Developer');
+Insert into Department (Emp_ID , Dept_Name) values (9 , 'Head');
+Insert into Department (Emp_ID , Dept_Name) values (10 , 'Team Lead');
+Insert into Department (Emp_ID , Dept_Name) values (11 , 'Sales');
+Insert into Department (Emp_ID , Dept_Name) values (12 , 'Marketing');
+
+Alter table Employees drop column Department;
+
+--UC12
+Select * from Employees
+
+Select Salary from Employees where Emp_Name = 'John'
+
+Select * from Employees where Starting_date between CAST('2020-01-01' as date) and GetDate(); 
+
+select sum(Salary) , Gender from Employees where Gender = 'F' group by Gender;
+select sum(Salary) , Gender from Employees where Gender = 'M' group by Gender;
+
+select AVG(Salary) , Gender from Employees where Gender = 'F' group by Gender;
+select AVG(Salary) , Gender from Employees where Gender = 'M' group by Gender;
+
+select MIN(Salary) from Employees where Gender = 'F';
+select MIN(Salary) from Employees where Gender = 'M';
+
+select MAX(Salary) from Employees where Gender = 'F';
+select MAX(Salary) from Employees where Gender = 'M';
+
+select COUNT(*) from Employees group by Gender;
